@@ -29,7 +29,7 @@ export default function Index(){
         <SafeAreaView style={styles.safeArea}>
             <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
                 <ImageBackground
-                    source={require('../assets/images/hamburgueres/categoria-hamburgueres.png')}
+                    source={require('../assets/images/hero-food-spread.png')}
                     style={styles.hero}
                     imageStyle={styles.heroImage}
                     resizeMode="cover"
@@ -69,9 +69,6 @@ export default function Index(){
                 <View style={styles.section}>
                     <View style={styles.sectionHeader}>
                         <Text style={styles.sectionTitulo}>Categorias</Text>
-                        <TouchableOpacity onPress={()=>router.push('/lista')}>
-                            <Text style={styles.link}>Todas</Text>
-                        </TouchableOpacity>
                     </View>
 
                     <View style={styles.categoriasGrid}>
@@ -118,16 +115,22 @@ const styles = StyleSheet.create({
     safeArea:{flex:1,backgroundColor:"#17120f"},
     container:{backgroundColor:"#f4f1ec",paddingBottom:24},
     hero:{
-        minHeight:440,
+        minHeight:560,
         margin:12,
         borderRadius:20,
         overflow:"hidden",
         backgroundColor:"#1c120c"
     },
-    heroImage:{borderRadius:20},
+    heroImage:{
+        borderRadius:20,
+        backgroundColor:"#1c120c",
+        width:"100%",
+        height:"118%",
+        transform:[{translateY:-90}]
+    },
     overlay:{
         flex:1,
-        backgroundColor:"rgba(0,0,0,0.52)",
+        backgroundColor:"rgba(0,0,0,0.68)",
         padding:20,
         justifyContent:"space-between"
     },

@@ -15,7 +15,7 @@ export default function Id() {
         <ScrollView style={styles.container} contentContainerStyle={styles.conteudo}>
             <View style={[styles.produtoCard, telaGrande && styles.produtoCardDesktop]}>
                 <View style={[styles.imagemCard, telaGrande && styles.imagemCardDesktop, {height:alturaImagem}]}>
-                    <Image style={styles.imagem} source={produto.imagem} resizeMode='cover'/>
+                    <Image style={styles.imagem} source={produto.imagem} resizeMode='contain'/>
                 </View>
 
                 <View style={[styles.info, telaGrande && styles.infoDesktop]}>
@@ -55,42 +55,44 @@ const styles=StyleSheet.create({
         flexDirection:"row",alignItems:"stretch"
     },
     imagemCard:{
-        width:"100%",overflow:"hidden",backgroundColor:"#eee"
+        width:"100%",overflow:"hidden",backgroundColor:"#eee",
+        alignItems:"center",justifyContent:"center"
     },
     imagemCardDesktop:{
         width:"52%"
     },
-    imagem:{width:"100%",height:"100%"},
+    imagem:{width:"92%",height:"92%"},
     info:{
-        padding:22,gap:18
+        padding:22,gap:18,alignItems:"center"
     },
     infoDesktop:{
         flex:1,justifyContent:"center",padding:36
     },
     cabecalho:{
-        flexDirection:"row",justifyContent:"space-between",
-        alignItems:"flex-start",gap:20
+        width:"100%",alignItems:"center",gap:10
     },
-    tituloBox:{flex:1},
-    nome:{fontSize:30,fontWeight:"800",color:"#171717"},
+    tituloBox:{alignItems:"center"},
+    nome:{fontSize:30,fontWeight:"800",color:"#171717",textAlign:"center"},
     categoria:{
-        alignSelf:"flex-start",fontSize:13,fontWeight:"800",
+        alignSelf:"center",fontSize:13,fontWeight:"800",
         color:"#8e0866",backgroundColor:"#fde8f5",
         paddingHorizontal:10,paddingVertical:5,borderRadius:999,
         marginTop:8
     },
-    preco:{fontSize:38,fontWeight:"900",color:"#8e0866"},
+    preco:{fontSize:38,fontWeight:"900",color:"#8e0866",textAlign:"center"},
     descricaoBox:{
+        width:"100%",maxWidth:620,
         backgroundColor:"#f8f8f8",borderRadius:14,
         padding:16,borderWidth:1,borderColor:"#eeeeee"
     },
     descricaoLabel:{
         fontSize:13,fontWeight:"800",color:"#8e0866",
-        marginBottom:8,textTransform:"uppercase"
+        marginBottom:8,textTransform:"uppercase",textAlign:"center"
     },
     descricao:{
-        fontSize:19,lineHeight:28,color:"#333"},
+        fontSize:19,lineHeight:28,color:"#333",textAlign:"center"},
     botaoComprar:{
+        width:"100%",maxWidth:620,
         backgroundColor:"#f10b0b",paddingVertical:18,
         borderRadius:14,alignItems:"center",marginTop:8,
         shadowColor:"#f10b0b",shadowOffset:{width:0,height:6},
@@ -98,6 +100,7 @@ const styles=StyleSheet.create({
     },
     botaoComprarText:{fontSize:19,fontWeight:"900",color:"#fff"},
     botaoVoltar:{
+        width:"100%",maxWidth:620,
         paddingVertical:13,alignItems:"center",
         borderRadius:12,borderWidth:1,borderColor:"#e5e5e5"
     },
