@@ -15,7 +15,7 @@ export default function Id() {
         <ScrollView style={styles.container} contentContainerStyle={styles.conteudo}>
             <View style={[styles.produtoCard, telaGrande && styles.produtoCardDesktop]}>
                 <View style={[styles.imagemCard, telaGrande && styles.imagemCardDesktop, {height:alturaImagem}]}>
-                    <Image style={styles.imagem} source={produto.imagem} resizeMode='contain'/>
+                    <Image style={styles.imagem} source={produto.imagem} resizeMode='cover'/>
                 </View>
 
                 <View style={[styles.info, telaGrande && styles.infoDesktop]}>
@@ -56,12 +56,11 @@ const styles=StyleSheet.create({
     },
     imagemCard:{
         width:"100%",overflow:"hidden",backgroundColor:"#eee",
-        alignItems:"center",justifyContent:"center"
     },
     imagemCardDesktop:{
         width:"52%"
     },
-    imagem:{width:"92%",height:"92%"},
+    imagem:{width:"100%",height:"100%"},
     info:{
         padding:22,gap:18,alignItems:"center"
     },
