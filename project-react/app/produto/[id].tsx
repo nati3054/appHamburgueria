@@ -1,16 +1,17 @@
 import {View,Text,Image,TouchableOpacity, StyleSheet} from 'react-native'
 import {useLocalSearchParams} from 'expo-router'
-import {sandubas} from '../../data/arrayProdutos'
+import {produtos} from '../../data/arrayProdutos'
 
 export default function Id() {
 const {id} = useLocalSearchParams<{id:string}>()
-const produto = sandubas.find((p)=>p.id === Number(id))
+const produto = produtos.find((p)=>p.id === Number(id))
 if(!produto) return <Text>Nao EXISTE ESSE PRODUTO</Text>
     return(
        <View style={styles.container}>
         <Image style={styles.imagem} source={produto.imagem} resizeMode='cover'/>
         <View style={styles.info}>
             <Text style={styles.nome}>{produto.titulo}</Text>
+            <Text style={styles.categoria}>{produto.categoria}</Text>
             <Text style={styles.preco}>{produto.preco}</Text>
             <Text style={styles.descricao}>{produto.descricao}</Text>
             <TouchableOpacity style={styles.botaoComprar}>
@@ -28,6 +29,7 @@ const styles=StyleSheet.create({
     imagem:{width:"100%",height:300},
     info:{padding:20,gap:12},
     nome:{fontSize:24,fontWeight:"bold",color:"#000"},
+    categoria:{fontSize:16,fontWeight:"600",color:"#8e0866"},
     preco:{fontSize:40,fontWeight:"600",color:"#8e0866"},
     descricao:{
         fontSize:25,lineHeight:22,color:"#555"},

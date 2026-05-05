@@ -6,4 +6,5 @@ export type prodType={
     descricao : string
     preco : string
     imagem : ImageSourcePropType
+    categoria : string
 }
