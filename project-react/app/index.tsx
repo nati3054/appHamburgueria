@@ -19,9 +19,9 @@ const categorias = [
 ] as const
 
 const destaques = [
-    {titulo:"Double X", descricao:"Blend 150g, queijo, bacon e alface", preco:"R$58.90", rota:"/produto/0", imagem:require('../assets/images/hamburgueres/1.png')},
-    {titulo:"Pizza Pepperoni", descricao:"Mussarela, pepperoni e molho de tomate", preco:"R$52.90", rota:"/produto/27", imagem:require('../assets/images/pizza/pizza-pepperoni.png')},
-    {titulo:"Milkshake Chocolate", descricao:"Milkshake cremoso 400ml", preco:"R$18.90", rota:"/produto/19", imagem:require('../assets/images/bebidas/bebida-milkshake-chocolate.png')},
+    {titulo:"Double X", descricao:"Blend 150g, queijo, bacon e alface", preco:"R$58.90", rota:"/hamburgueres/0", imagem:require('../assets/images/hamburgueres/1.png')},
+    {titulo:"Pizza Pepperoni", descricao:"Mussarela, pepperoni e molho de tomate", preco:"R$52.90", rota:"/pizza/27", imagem:require('../assets/images/pizza/pizza-pepperoni.png')},
+    {titulo:"Milkshake Chocolate", descricao:"Milkshake cremoso 400ml", preco:"R$18.90", rota:"/bebidas/19", imagem:require('../assets/images/bebidas/bebida-milkshake-chocolate.png')},
 ] as const
 
 export default function Index(){

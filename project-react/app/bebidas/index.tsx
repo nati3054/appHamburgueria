@@ -1,6 +1,6 @@
 import CategoriaProdutos from '../../components/CategoriaProdutos'
-import {bebidas} from '../../data/arrayProdutos'
+import {arrayBebidas} from '../../data/arrayBebidas'
 
 export default function Bebidas() {
-    return <CategoriaProdutos titulo="Bebidas" produtos={bebidas}/>
+    return <CategoriaProdutos titulo="Bebidas" produtos={arrayBebidas}/>
 }

@@ -1,6 +1,6 @@
 import CategoriaProdutos from '../../components/CategoriaProdutos'
-import {sandubas} from '../../data/arrayProdutos'
+import {arrayHamburgueres} from '../../data/arrayHamburgueres'
 
 export default function Hamburgueres() {
-    return <CategoriaProdutos titulo="Hamburgueres" produtos={sandubas}/>
+    return <CategoriaProdutos titulo="Hamburgueres" produtos={arrayHamburgueres}/>
 }

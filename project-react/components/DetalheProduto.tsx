@@ -1,8 +1,12 @@
-import {View,Text,Image,TouchableOpacity, StyleSheet, useWindowDimensions, ScrollView} from 'react-native'
 import {Stack, useLocalSearchParams} from 'expo-router'
-import {produtos} from '../../data/arrayProdutos'
+import {View, Text, Image, TouchableOpacity, StyleSheet, useWindowDimensions, ScrollView} from 'react-native'
+import {prodType} from '../types/prodType'
 
-export default function Id() {
+type Props = {
+    produtos: prodType[]
+}
+
+export default function DetalheProduto({produtos}: Props) {
     const {id} = useLocalSearchParams<{id:string}>()
     const {width} = useWindowDimensions()
     const telaGrande = width >= 768
@@ -108,4 +112,4 @@ const styles=StyleSheet.create({
     },
     botaoVoltarText:{fontSize:15,fontWeight:"800",color:"#4d4949"},
     errorText:{fontSize:16,color:"#4d4949",marginBottom:16}
-})    
+})

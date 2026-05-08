@@ -1,6 +1,6 @@
 import CategoriaProdutos from '../../components/CategoriaProdutos'
-import {doces} from '../../data/arrayProdutos'
+import {arrayDoces} from '../../data/arrayDoces'
 
 export default function Doces() {
-    return <CategoriaProdutos titulo="Doces" produtos={doces}/>
+    return <CategoriaProdutos titulo="Doces" produtos={arrayDoces}/>
 }
