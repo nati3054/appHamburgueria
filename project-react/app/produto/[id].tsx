@@ -1,5 +1,5 @@
 import {View,Text,Image,TouchableOpacity, StyleSheet, useWindowDimensions, ScrollView} from 'react-native'
-import {useLocalSearchParams} from 'expo-router'
+import {Stack, useLocalSearchParams} from 'expo-router'
 import {produtos} from '../../data/arrayProdutos'
 
 export default function Id() {
@@ -12,6 +12,8 @@ export default function Id() {
     if(!produto) return <Text>Nao EXISTE ESSE PRODUTO</Text>
 
     return(
+        <>
+        <Stack.Screen options={{title:produto.titulo}}/>
         <ScrollView style={styles.container} contentContainerStyle={styles.conteudo}>
             <View style={[styles.produtoCard, telaGrande && styles.produtoCardDesktop]}>
                 <View style={[styles.imagemCard, telaGrande && styles.imagemCardDesktop, {height:alturaImagem}]}>
@@ -41,6 +43,7 @@ export default function Id() {
                 </View>
             </View>
         </ScrollView>
+        </>
     )
 }
 

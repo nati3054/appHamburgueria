@@ -37,7 +37,7 @@ const categorias = [
 export default function Lista() {
     return(
         <View style={styles.container}>
-            <Text style={styles.titulo}>Menu</Text>
+            <Text style={styles.titulo}>Cardápio</Text>
             <ScrollView contentContainerStyle={styles.grid}>
                 {categorias.map((categoria)=>(
                     <TouchableOpacity
