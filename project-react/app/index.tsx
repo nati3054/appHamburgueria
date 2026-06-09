@@ -1,32 +1,42 @@
 import {Ionicons} from '@expo/vector-icons'
-import {router} from 'expo-router'
+import {router, useFocusEffect} from 'expo-router'
+import {useCallback, useState} from 'react'
 import {
     Image,
     ImageBackground,
-    SafeAreaView,
     ScrollView,
     StyleSheet,
     Text,
     TouchableOpacity,
     View,
 } from 'react-native'
+import {contarItensCarrinho} from '../repositories/CarrinhoRepository'
 
 const categorias = [
-    {titulo:"Hamburgueres", rota:"/hamburgueres", imagem:require('../assets/images/hamburgueres/categoria-hamburgueres.png')},
-    {titulo:"Bebidas", rota:"/bebidas", imagem:require('../assets/images/bebidas/categoria-bebidas.png')},
-    {titulo:"Pizzas", rota:"/pizza", imagem:require('../assets/images/pizza/categoria-pizza.png')},
-    {titulo:"Doces", rota:"/doces", imagem:require('../assets/images/doces/categoria-doces.png')},
-] as const
+    {titulo:"Hamburgueres", rota:"/produtos/hamburgueres", imagem:require('../assets/images/hamburgueres/categoria-hamburgueres.png')},
+    {titulo:"Bebidas", rota:"/produtos/bebidas", imagem:require('../assets/images/bebidas/categoria-bebidas.png')},
+    {titulo:"Pizzas", rota:"/produtos/pizza", imagem:require('../assets/images/pizza/categoria-pizza.png')},
+    {titulo:"Doces", rota:"/produtos/doces", imagem:require('../assets/images/doces/categoria-doces.png')},
+    {titulo:"Outros", rota:"/produtos/outros", imagem:require('../assets/images/outros/categoria-outros.png')},
+]
 
 const destaques = [
-    {titulo:"Double X", descricao:"Blend 150g, queijo, bacon e alface", preco:"R$58.90", rota:"/hamburgueres/0", imagem:require('../assets/images/hamburgueres/1.png')},
-    {titulo:"Pizza Pepperoni", descricao:"Mussarela, pepperoni e molho de tomate", preco:"R$52.90", rota:"/pizza/27", imagem:require('../assets/images/pizza/pizza-pepperoni.png')},
-    {titulo:"Milkshake Chocolate", descricao:"Milkshake cremoso 400ml", preco:"R$18.90", rota:"/bebidas/19", imagem:require('../assets/images/bebidas/bebida-milkshake-chocolate.png')},
-] as const
+    {titulo:"Double X", descricao:"Blend 150g, queijo, bacon e alface", preco:"R$58.90", rota:"/produtos/hamburgueres", imagem:require('../assets/images/hamburgueres/1.png')},
+    {titulo:"Pizza Pepperoni", descricao:"Mussarela, pepperoni e molho de tomate", preco:"R$52.90", rota:"/produtos/pizza", imagem:require('../assets/images/pizza/pizza-pepperoni.png')},
+    {titulo:"Milkshake Chocolate", descricao:"Milkshake cremoso 400ml", preco:"R$18.90", rota:"/produtos/bebidas", imagem:require('../assets/images/bebidas/bebida-milkshake-chocolate.png')},
+]
 
 export default function Index(){
+    const [totalCarrinho, setTotalCarrinho] = useState(0)
+
+    useFocusEffect(
+        useCallback(() => {
+            contarItensCarrinho().then(setTotalCarrinho).catch(() => {})
+        }, [])
+    )
+
     return (
-        <SafeAreaView style={styles.safeArea}>
+        <View style={styles.safeArea}>
             <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
                 <ImageBackground
                     source={require('../assets/images/hero-food-spread.png')}
@@ -40,9 +50,24 @@ export default function Index(){
                                 <Text style={styles.nome}>Burger House</Text>
                                 <Text style={styles.subNome}>Hamburgueria artesanal</Text>
                             </View>
-                            <View style={styles.status}>
-                                <Ionicons name="time-outline" size={16} color="#fff" />
-                                <Text style={styles.statusTexto}>Aberto</Text>
+                            <View style={styles.topAcoes}>
+                                <View style={styles.status}>
+                                    <Ionicons name="time-outline" size={16} color="#fff" />
+                                    <Text style={styles.statusTexto}>Aberto</Text>
+                                </View>
+                                <TouchableOpacity
+                                    style={styles.carrinho}
+                                    onPress={()=>router.push('/carrinho' as never)}
+                                >
+                                    <Ionicons name="cart-outline" size={22} color="#fff" />
+                                    {totalCarrinho > 0 && (
+                                        <View style={styles.badge}>
+                                            <Text style={styles.badgeTexto}>
+                                                {totalCarrinho > 99 ? '99+' : String(totalCarrinho)}
+                                            </Text>
+                                        </View>
+                                    )}
+                                </TouchableOpacity>
                             </View>
                         </View>
 
@@ -58,7 +83,7 @@ export default function Index(){
                                     <Ionicons name="arrow-forward" size={20} color="#1c120c" />
                                 </TouchableOpacity>
 
-                                <TouchableOpacity style={styles.botaoSecundario} onPress={()=>router.push('/hamburgueres')}>
+                                <TouchableOpacity style={styles.botaoSecundario} onPress={()=>router.push('/produtos/hamburgueres' as never)}>
                                     <Ionicons name="fast-food-outline" size={20} color="#fff" />
                                 </TouchableOpacity>
                             </View>
@@ -107,7 +132,7 @@ export default function Index(){
                     </View>
                 </View>
             </ScrollView>
-        </SafeAreaView>
+        </View>
     )
 }
 
@@ -135,6 +160,7 @@ const styles = StyleSheet.create({
         justifyContent:"space-between"
     },
     topBar:{flexDirection:"row",alignItems:"center",justifyContent:"space-between",gap:12},
+    topAcoes:{flexDirection:"row",alignItems:"center",gap:8},
     nome:{color:"#fff",fontSize:24,fontWeight:"900"},
     subNome:{color:"#f0ddd0",fontSize:14,fontWeight:"600",marginTop:2},
     status:{
@@ -149,6 +175,19 @@ const styles = StyleSheet.create({
         backgroundColor:"rgba(255,255,255,0.14)"
     },
     statusTexto:{color:"#fff",fontSize:13,fontWeight:"800"},
+    carrinho:{
+        width:42,height:42,borderRadius:999,alignItems:"center",justifyContent:"center",
+        backgroundColor:"rgba(255,255,255,0.14)",
+        borderWidth:1,borderColor:"rgba(255,255,255,0.32)"
+    },
+    badge:{
+        position:"absolute",top:2,right:2,
+        minWidth:14,height:14,borderRadius:7,
+        backgroundColor:"#ffba38",
+        alignItems:"center",justifyContent:"center",
+        paddingHorizontal:3,
+    },
+    badgeTexto:{fontSize:9,fontWeight:"900",color:"#1c120c"},
     heroContent:{gap:14},
     heroTitulo:{color:"#fff",fontSize:38,fontWeight:"900",lineHeight:43,maxWidth:560},
     heroDescricao:{color:"#f7ece3",fontSize:16,fontWeight:"600",lineHeight:23,maxWidth:520},
@@ -177,7 +216,6 @@ const styles = StyleSheet.create({
     section:{paddingHorizontal:16,marginTop:10},
     sectionHeader:{flexDirection:"row",alignItems:"center",justifyContent:"space-between",marginBottom:12},
     sectionTitulo:{fontSize:23,fontWeight:"900",color:"#211915",marginBottom:12},
-    link:{fontSize:15,fontWeight:"800",color:"#9d4612"},
     categoriasGrid:{flexDirection:"row",flexWrap:"wrap",gap:12},
     categoriaCard:{
         width:"48%",
