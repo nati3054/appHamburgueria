@@ -4,21 +4,11 @@ import {prodType} from '../types/prodType'
 
 type Props = {produto: prodType}
 
-const rotasPorCategoria: Record<string, string> = {
-    Hamburgueres: 'hamburgueres',
-    Bebidas: 'bebidas',
-    Pizza: 'pizza',
-    Doces: 'doces',
-    Outros: 'outros',
-}
-
 export default function ProdutoCard({produto}: Props) {
-    const rota = rotasPorCategoria[produto.categoria] ?? 'outros'
-
     return (
         <TouchableOpacity
             style={styles.card}
-            onPress={() => router.push(`/produtos/${rota}/${produto.apiId}` as never)}
+            onPress={() => router.push(`/produtos/${produto.categoria}/${produto.apiId}` as never)}
         >
             <View style={styles.info}>
                 <Text style={styles.titulo}>{produto.titulo}</Text>

@@ -6,4 +6,5 @@ export type ProdutoApi = {
     preco: number
     imagem: string
     categoria: string
+    tituloCategoria: string
 }

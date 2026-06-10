@@ -4,13 +4,14 @@ import {useCallback, useState} from 'react'
 import {View, Text, TouchableOpacity, StyleSheet, Image, ScrollView} from 'react-native'
 import {contarItensCarrinho} from '../repositories/CarrinhoRepository'
 import {buscarProdutosApi} from '../services/produtosApi'
+import {CATEGORIAS} from '../types/Categoria'
 
 const categoriasBase = [
-    {titulo:'Hamburgueres', rota:'/produtos/hamburgueres', imagem:require('../assets/images/hamburgueres/categoria-hamburgueres.png')},
-    {titulo:'Bebidas',      rota:'/produtos/bebidas',      imagem:require('../assets/images/bebidas/categoria-bebidas.png')},
-    {titulo:'Pizza',        rota:'/produtos/pizza',        imagem:require('../assets/images/pizza/categoria-pizza.png')},
-    {titulo:'Doces',        rota:'/produtos/doces',        imagem:require('../assets/images/doces/categoria-doces.png')},
-    {titulo:'Outros',       rota:'/produtos/outros',       imagem:require('../assets/images/outros/categoria-outros.png')},
+    {...CATEGORIAS[0], imagem:require('../assets/images/hamburgueres/categoria-hamburgueres.png')},
+    {...CATEGORIAS[1], imagem:require('../assets/images/bebidas/categoria-bebidas.png')},
+    {...CATEGORIAS[2], imagem:require('../assets/images/pizza/categoria-pizza.png')},
+    {...CATEGORIAS[3], imagem:require('../assets/images/doces/categoria-doces.png')},
+    {...CATEGORIAS[4], imagem:require('../assets/images/outros/categoria-outros.png')},
 ]
 
 export default function Lista() {
@@ -62,16 +63,16 @@ export default function Lista() {
             <ScrollView contentContainerStyle={styles.grid}>
                 {categoriasBase.map((categoria) => (
                     <TouchableOpacity
-                        key={categoria.rota}
+                        key={categoria.categoria}
                         style={styles.card}
-                        onPress={() => router.push(categoria.rota as never)}
+                        onPress={() => router.push(`/produtos/${categoria.categoria}` as never)}
                     >
                         <View style={styles.imagem}>
                             <Image style={styles.foto} source={categoria.imagem} resizeMode="cover" />
                             <View style={styles.info}>
-                                <Text style={styles.cardTitulo}>{categoria.titulo}</Text>
+                                <Text style={styles.cardTitulo}>{categoria.tituloCategoria}</Text>
                                 <Text style={styles.cardDescricao}>
-                                    {quantidades[categoria.titulo] ?? '...'} opções
+                                    {quantidades[categoria.categoria] ?? '...'} opções
                                 </Text>
                             </View>
                         </View>

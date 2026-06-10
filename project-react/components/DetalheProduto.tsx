@@ -66,7 +66,7 @@ export default function DetalheProduto({produtos, produtoSelecionado}: Props) {
                     <View style={styles.cabecalho}>
                         <View style={styles.tituloBox}>
                             <Text style={styles.nome}>{produto.titulo}</Text>
-                            <Text style={styles.categoria}>{produto.categoria}</Text>
+                            <Text style={styles.categoria}>{produto.tituloCategoria}</Text>
                         </View>
                         <Text style={styles.preco}>{produto.preco}</Text>
                     </View>

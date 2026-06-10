@@ -41,7 +41,7 @@ export async function adicionarAoCarrinho(produto: prodType): Promise<void> {
          DO UPDATE SET quantidade = quantidade + 1`,
         produto.id,
         produto.titulo,
-        produto.categoria,
+        produto.tituloCategoria,
         textoParaPreco(produto.preco)
     )
 }

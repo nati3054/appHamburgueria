@@ -7,10 +7,11 @@ import {prodType} from '../types/prodType'
 import ProdutoCard from './produtoCard'
 
 type Props = {
+    categoria: string
     titulo: string
 }
 
-export default function CategoriaProdutos({titulo}: Props) {
+export default function CategoriaProdutos({categoria, titulo}: Props) {
     const [lista, setLista] = useState<prodType[]>([])
     const [carregando, setCarregando] = useState(true)
     const [erro, setErro] = useState('')
@@ -26,8 +27,8 @@ export default function CategoriaProdutos({titulo}: Props) {
                     if (!ativo) return
                     setLista(
                         produtos
-                            .filter((p) => p.categoria === titulo)
                             .map(converterProdutoApi)
+                            .filter((produto) => produto.categoria === categoria)
                     )
                 })
                 .catch((e) => {
@@ -38,7 +39,7 @@ export default function CategoriaProdutos({titulo}: Props) {
                 })
 
             return () => { ativo = false }
-        }, [titulo])
+        }, [categoria])
     )
 
     if (carregando) {

@@ -8,4 +8,5 @@ export type prodType={
     preco : string
     imagem : ImageSourcePropType
     categoria : string
+    tituloCategoria : string
 }

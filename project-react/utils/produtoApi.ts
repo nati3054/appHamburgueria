@@ -10,6 +10,7 @@ export function converterProdutoApi(produto: ProdutoApi): prodType {
         descricao: produto.descricao,
         preco: formatarMoeda(Number(produto.preco)),
         imagem: {uri: produto.imagem},
-        categoria: produto.categoria,
+        categoria: (produto.categoria ?? '').toLowerCase(),
+        tituloCategoria: produto.tituloCategoria,
     }
 }

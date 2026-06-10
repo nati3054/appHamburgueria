@@ -14,15 +14,14 @@ import {
     View,
 } from 'react-native'
 import {cadastrarProdutoApi} from '../services/produtosApi'
-
-const categorias = ['Hamburgueres', 'Bebidas', 'Pizza', 'Doces', 'Outros']
+import {CATEGORIAS, CategoriaId} from '../types/Categoria'
 
 export default function CadastrarProduto() {
     const [titulo, setTitulo] = useState('')
     const [descricao, setDescricao] = useState('')
     const [preco, setPreco] = useState('')
     const [imagem, setImagem] = useState('')
-    const [categoria, setCategoria] = useState('')
+    const [categoria, setCategoria] = useState<CategoriaId | ''>('')
     const [salvando, setSalvando] = useState(false)
     const [erro, setErro] = useState('')
     const opacidadeSucesso = useRef(new Animated.Value(0)).current
@@ -58,12 +57,20 @@ export default function CadastrarProduto() {
         setSalvando(true)
 
         try {
+            const categoriaSelecionada = CATEGORIAS.find((item) => item.categoria === categoria)
+
+            if (!categoriaSelecionada) {
+                setErro('Selecione uma categoria válida.')
+                return
+            }
+
             const criado = await cadastrarProdutoApi({
                 titulo: titulo.trim(),
                 descricao: descricao.trim(),
                 preco: precoNumerico,
                 imagem: imagem.trim(),
-                categoria,
+                categoria: categoriaSelecionada.categoria,
+                tituloCategoria: categoriaSelecionada.tituloCategoria,
             })
 
             setTitulo('')
@@ -73,9 +80,8 @@ export default function CadastrarProduto() {
             setCategoria('')
             mostrarSucesso()
 
-            const rotaCategoria = categoria.toLowerCase()
             setTimeout(() => {
-                router.push(`/produtos/${rotaCategoria}/${criado.id}` as never)
+                router.push(`/produtos/${categoriaSelecionada.categoria}/${criado.id}` as never)
             }, 1500)
         } catch (falha) {
             setErro(falha instanceof Error ? falha.message : 'Não foi possível cadastrar o produto.')
@@ -115,16 +121,16 @@ export default function CadastrarProduto() {
 
                 <Text style={styles.label}>Categoria</Text>
                 <View style={styles.categorias}>
-                    {categorias.map((item) => {
-                        const selecionada = categoria === item
+                    {CATEGORIAS.map((item) => {
+                        const selecionada = categoria === item.categoria
                         return (
                             <TouchableOpacity
-                                key={item}
+                                key={item.categoria}
                                 style={[styles.categoriaBtn, selecionada && styles.categoriaBtnSelecionada]}
-                                onPress={() => setCategoria(item)}
+                                onPress={() => setCategoria(item.categoria)}
                             >
                                 <Text style={[styles.categoriaBtnTexto, selecionada && styles.categoriaBtnTextoSelecionado]}>
-                                    {item}
+                                    {item.tituloCategoria}
                                 </Text>
                             </TouchableOpacity>
                         )
